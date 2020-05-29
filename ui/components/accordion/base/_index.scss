@@ -44,6 +44,7 @@
 .slds-accordion__summary-heading {
   display: flex;
   flex-grow: 1;
+  min-width: 0;
   font-size: $var-font-size-5;
   line-height: $line-height-heading;
 
@@ -76,6 +77,17 @@
 
   @include rtl() {
     transform: rotate(90deg);
+  }
+}
+
+/**
+ * @summary Text of summary title for each expandable panel inside of an accordion
+ * @selector .slds-accordion__summary-content
+ * @restrict .slds-accordion__summary-action span
+ */
+.slds-accordion__summary-content {
+  @include mq-large-min {
+    @include truncate;
   }
 }
 

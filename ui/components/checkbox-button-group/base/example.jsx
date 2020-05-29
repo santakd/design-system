@@ -19,7 +19,9 @@ export let Fieldset = props => (
 );
 
 export let CheckboxGroup = props => (
-  <div className="slds-checkbox_button-group">{props.children}</div>
+  <div className={classNames('slds-checkbox_button-group', props.className)}>
+    {props.children}
+  </div>
 );
 
 export let Checkbox = props => {

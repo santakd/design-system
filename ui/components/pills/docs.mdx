@@ -2,6 +2,7 @@ import CodeView from '../../../shared/components/CodeView';
 import CodeBlock from '../../../shared/components/CodeBlock';
 import Blockquote from '../../../shared/components/Blockquote';
 import { getDisplayElementById } from '../../shared/helpers';
+import { MobileNotice, MobileBlurb } from '../../shared/doc-text';
 import * as PillsExamplesBase from './base/example';
 import * as PillsExamplesListbox from './listbox-of-pill-options/example';
 
@@ -19,9 +20,9 @@ To create a pill, apply the `.slds-pill` class on a `<span>`.
 
 Depending on your context, you will either need a linked pill or a pill option inside of a listbox.
 
-For linked pills, a modifier class of `slds-pill_link` needs to be added to the existing `<span>` with the classname of `slds-pill`. You need an `<a>` inside of the span with the `slds-pill_link` class. The `<a>` will get the classname of `slds-pill__action`. This will treat the interactions differently from an unlinked pill option inside of a listbox.
+For linked pills, a modifier class of `slds-pill_link` needs to be added to the existing `<span>` with the class name of `slds-pill`. You need an `<a>` inside of the span with the `slds-pill_link` class. The `<a>` will get the class name of `slds-pill__action`. This will treat the interactions differently from an unlinked pill option inside of a listbox.
 
-For both linked pills and unlinked pill options, a `<span>` with the classname of `slds-pill__label` should contain the string of text describing the pill object.
+For both linked pills and unlinked pill options, a `<span>` with the class name of `slds-pill__label` should contain the string of text describing the pill object.
 
 Note, that a linked pill should not be used as a pill option inside of a listbox.
 
@@ -31,19 +32,23 @@ You may also want the functionality to remove the pill as a selection. An "X" ic
 
 A `.slds-pill_container` can be used as a visual container for multiple pill(s).
 
+### Mobile
+
+<MobileBlurb patternSpecificText="pills will have an increased size to accommodate tapping with a finger instead of the more precise mouse cursor" />
+
+<CodeView frameOnly>
+  {getDisplayElementById(PillsExamplesBase.examples, 'icon')}
+</CodeView>
+
 ## Base
 
-<CodeView>
-  {PillsExamplesBase.default}
-</CodeView>
+<CodeView>{PillsExamplesBase.default}</CodeView>
 
 ### Examples
 
 #### With Icon
 
-<CodeView>
-  {getDisplayElementById(PillsExamplesBase.examples, 'icon')}
-</CodeView>
+<CodeView>{getDisplayElementById(PillsExamplesBase.examples, 'icon')}</CodeView>
 
 #### With Avatar
 
@@ -61,23 +66,19 @@ A `.slds-pill_container` can be used as a visual container for multiple pill(s).
 
 #### Error
 
-<CodeView>
-  {getDisplayElementById(PillsExamplesBase.states, 'error')}
-</CodeView>
+<CodeView>{getDisplayElementById(PillsExamplesBase.states, 'error')}</CodeView>
 
 #### Truncated
 
 The pills component will respect the width of its parent and truncate if necessary.
 
-<CodeView style={{ width: '220px' }}>
+<CodeView demoStyles="width: 220px;">
   {getDisplayElementById(PillsExamplesBase.states, 'truncated')}
 </CodeView>
 
 ## Listbox Of Pill Options
 
-<CodeView>
-  {PillsExamplesListbox.default}
-</CodeView>
+<CodeView>{PillsExamplesListbox.default}</CodeView>
 
 A Listbox of Pills is a way to display a list of selected options when performing user input, usually from a multi-select [Combobox](/components/combobox), [Lookup](/components/lookups) or [Picklist](/components/picklist).
 
@@ -85,7 +86,7 @@ A Listbox of Pills is a way to display a list of selected options when performin
 
 **Interaction requirements**
 
-- Only 1 focusabled Pill per set of Pills
+- Only 1 focused Pill per set of Pills
 - The remove button must not be a focusable element, but can be clickable
 - Delete with a keyboard is performed with the `Backspace` or `Delete` key when focused on a pill
 
@@ -116,13 +117,19 @@ A Listbox of Pills is a way to display a list of selected options when performin
 #### With Icon
 
 <CodeView>
-  {getDisplayElementById(PillsExamplesListbox.examples, 'listbox-pill-with-icon')}
+  {getDisplayElementById(
+    PillsExamplesListbox.examples,
+    'listbox-pill-with-icon'
+  )}
 </CodeView>
 
 #### With Avatar
 
 <CodeView>
-  {getDisplayElementById(PillsExamplesListbox.examples, 'listbox-pill-with-avatar')}
+  {getDisplayElementById(
+    PillsExamplesListbox.examples,
+    'listbox-pill-with-avatar'
+  )}
 </CodeView>
 
 ### Layout

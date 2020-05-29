@@ -132,7 +132,9 @@ The Predefined Only variant should only render the predefined colors selection i
 The Swatches Only variant should only render a group of individual swatches. It should not render any of the main chrome of the color picker UI (no Summary section, no Popover, no Tabset), it should only render the Color Picker swatches selector. This component should be rendered inside a menu.
 
 <Blockquote type="a11y" header="Accessibility Note">
-  The accessibility requirements for this Variant are slightly different from the others:
+  <p>
+    The accessibility requirements for this Variant are slightly different from the others:
+  </p>
 
   <ul className="slds-list_dotted">
     <li><code>.slds-color-picker__swatches</code> <em>needs</em> a <code>role</code> of <code>menu</code>.</li>
@@ -194,7 +196,7 @@ The custom range represents a matrix of all saturation and brightness combinatio
 
 Keep in mind that when implementing color conversions, this custom range picker is utilizing the HSB/HSV color model, and not the HSL model.
 
-This element _needs_ an inline style, with the `background` property set to the _working color_'s hue, as defined by the hue range input element desctibed above. As this element is meant to represent the current _working color_'s hue's saturation and lightness matrix, css's hsl() syntax is the most appropriate format here, with the hue being the current _working color_'s hue, the saturation set to 100% and the lightness set to 50% (the 50% lightness is to adjust this HSL range for the HSB color model).
+This element _needs_ an inline style, with the `background` property set to the _working color_'s hue, as defined by the hue range input element described above. As this element is meant to represent the current _working color_'s hue's saturation and lightness matrix, css's hsl() syntax is the most appropriate format here, with the hue being the current _working color_'s hue, the saturation set to 100% and the lightness set to 50% (the 50% lightness is to adjust this HSL range for the HSB color model).
 
 A gradient overlay will produce the effect of the saturation and brightness matrix automatically.
 

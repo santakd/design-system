@@ -1,5 +1,6 @@
 import CodeView from "../../../shared/components/CodeView";
 import { getDisplayElementById } from "../../shared/helpers";
+import { MobileNotice, MobileBlurb } from '../../shared/doc-text';
 import * as MapExamples from "./base/example";
 
 <div className="lead doc">A map component is used to find a location</div>
@@ -7,6 +8,14 @@ import * as MapExamples from "./base/example";
 ## Base
 
 <CodeView>{MapExamples.default}</CodeView>
+
+### Mobile
+
+<MobileBlurb patternSpecificText="maps will have increased header text size along with other small adjustments" />
+
+<CodeView frameOnly>
+  {MapExamples.default}
+</CodeView>
 
 ## States
 
@@ -32,12 +41,12 @@ import * as MapExamples from "./base/example";
 
 ### In Modal - Single Coordinate With Footer
 
-<CodeView isViewport style={{ height: '660px'}}>
+<CodeView isViewport demoStyles="height: 660px;">
   {getDisplayElementById(MapExamples.examples, "single-coordinate")}
 </CodeView>
 
 ### In Modal - Multiple Coordinates With Footer
 
-<CodeView isViewport style={{ height: '660px'}}>
+<CodeView isViewport demoStyles="height: 660px;">
   {getDisplayElementById(MapExamples.examples, "multiple-coordinates")}
 </CodeView>

@@ -5,17 +5,20 @@ import * as AdvancedExamples from './advanced/example';
 import * as HiddenHeaderExamples from './hidden-header/example';
 import * as InlineEditExamples from './inline-edit/example';
 import * as ResponsiveExamples from './responsive/example';
+import * as FixedHeaderExamples from './fixed-header/example';
 import { getAllDisplayCollectionsByType } from '../../shared/helpers';
 import StoryFrame from '../../../shared/components/StoryFrame';
 
-import '../../index.scss';
+import DocsPage from '../../../.storybook/components/DocsPage';
+import Docs from './docs.mdx';
 
 const examples = [
   BaseExamples,
   AdvancedExamples,
   HiddenHeaderExamples,
   InlineEditExamples,
-  ResponsiveExamples
+  ResponsiveExamples,
+  FixedHeaderExamples
 ];
 
 const kitchenSink = getAllDisplayCollectionsByType(examples, [
@@ -24,14 +27,21 @@ const kitchenSink = getAllDisplayCollectionsByType(examples, [
   'states'
 ]);
 
-storiesOf('Components/Data Tables', module).add('Kitchen Sink', () =>
-  kitchenSink.map((element, idx) =>
-    element.map(({ label, component }) => (
-      <StoryFrame
-        component={component}
-        label={label}
-        key={`kitchen-sink-${label}-${idx}`}
-      />
-    ))
-  )
+storiesOf('Components/Data Tables', module).add(
+  'Kitchen Sink',
+  () =>
+    kitchenSink.map((element, idx) =>
+      element.map(({ label, component }) => (
+        <StoryFrame
+          component={component}
+          label={label}
+          key={`kitchen-sink-${label}-${idx}`}
+        />
+      ))
+    ),
+  {
+    docs: {
+      page: () => <DocsPage title="Data Tables" Docs={Docs} />
+    }
+  }
 );

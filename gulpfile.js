@@ -14,6 +14,7 @@ import * as examples from './scripts/gulp/generate/examples';
 import * as tokens from './scripts/gulp/generate/tokens';
 import * as lint from './scripts/gulp/lint';
 import * as styles from './scripts/gulp/styles';
+import * as sanitized from './scripts/gulp/generate/sanitized';
 
 import paths from './scripts/helpers/paths';
 import * as travis from './scripts/helpers/travis';
@@ -50,6 +51,7 @@ gulp.task('clean', () =>
     paths.logs,
     paths.build,
     paths.html,
+    paths.css,
     path.join(paths.designTokens, 'dist')
   ])
 );
@@ -185,26 +187,38 @@ gulp.task(
 
 /*
  * ==================
+ * Styles Sanitized
+ * ==================
+ */
+gulp.task('sanitized:sass', sanitized.generateSanitizedScss);
+gulp.task('sanitized:componentSass', sanitized.writeSanitizedComponentCss);
+
+/*
+ * ==================
  * Styles
  * ==================
  */
 
 gulp.task('styles:sass', styles.sass);
+gulp.task('styles:sassTouch', styles.sassTouch);
+gulp.task('styles:sassTouchDemo', styles.sassTouchDemo);
 gulp.task('styles:test', styles.sassTest);
 gulp.task('styles:formFactors', styles.sassFormFactors);
 gulp.task(
   'styles',
   gulp.series(
     gulp.parallel(
-      withName('styles:sass')(styles.sass),
-      withName('styles:test')(styles.sassTest),
-      withName('styles:formFactors')(styles.sassFormFactors)
+      'styles:sass',
+      'styles:sassTouch',
+      'styles:sassTouchDemo',
+      'styles:test',
+      'styles:formFactors'
     )
   )
 );
 gulp.task(
   'styles:stats',
-  gulp.series('styles', withName('stylestats')(styles.stylestats))
+  gulp.series('styles', withName('styles:stats')(styles.stats))
 );
 
 /*
@@ -214,6 +228,22 @@ gulp.task(
  */
 
 gulp.task('build', gulp.series('clean', 'generate:tokens:all', 'styles'));
+
+/*
+ * ==================
+ * Write UI.json
+ * ==================
+ */
+
+gulp.task(
+  'dist:ui-json',
+  gulp.series(
+    'generate:tokens:all',
+    withName('dist:clean:before')(dist.cleanBefore),
+    withName('dist:writeUI')(dist.writeUI),
+    withName('dist:clean:after')(dist.cleanAfter)
+  )
+);
 
 /*
  * ==================
@@ -244,6 +274,40 @@ export const watch = () =>
  * ==================
  */
 
+// Framework
+gulp.task('dist:sass:framework', dist.sass);
+gulp.task('dist:sass:frameworkTouch', dist.sassTouch);
+gulp.task('dist:sass:frameworkTouchDemo', dist.sassTouchDemo);
+
+// Components
+gulp.task('dist:sass:components:generate', dist.generateComponentSass);
+gulp.task('dist:sass:components:common', dist.writeCommon);
+
+gulp.task(
+  'dist:sass',
+  gulp.series(
+    'dist:sass:framework',
+    'dist:sass:frameworkTouch',
+    'dist:sass:frameworkTouchDemo',
+    'dist:sass:components:generate',
+    'dist:sass:components:common'
+  )
+);
+
+// Sanitize Framework
+gulp.task('dist:sass:sanitized:generate', dist.generateSanitized);
+gulp.task('dist:sass:sanitized:write', dist.writeSanitized);
+gulp.task('dist:sass:sanitized:components', dist.writeSanitizedComponents);
+
+gulp.task(
+  'dist:sass:sanitized',
+  gulp.parallel(
+    'dist:sass:sanitized:generate',
+    'dist:sass:sanitized:write',
+    'dist:sass:sanitized:components'
+  )
+);
+
 gulp.task(
   'dist',
   gulp.series(
@@ -266,14 +330,15 @@ gulp.task(
       withName('dist:copyDesignTokens')(dist.copyDesignTokens),
       withName('dist:copyComponentDesignTokens')(dist.copyComponentDesignTokens)
     ),
-    withName('dist:sass')(dist.sass),
-    withName('dist:minifyCss')(dist.minifyCss),
+    'dist:sass',
+    'dist:sass:sanitized',
     gulp.parallel(
       withName('dist:versionBlock')(dist.versionBlock),
       withName('dist:versionInline')(dist.versionInline),
       withName('dist:buildInfo')(dist.buildInfo),
       withName('dist:packageJson')(dist.packageJson)
     ),
+    withName('dist:minifyCss')(dist.minifyCss),
     withName('dist:writeUI')(dist.writeUI),
     withName('dist:writeLibrary')(dist.writeLibrary),
     withName('dist:writeTokenComponentMap')(done =>

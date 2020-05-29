@@ -11,6 +11,7 @@
  * @restrict div
  * @support dev-ready
  * @variant
+ * @lwc
  */
 .slds-tabs-mobile__container {
   position: relative;
@@ -60,18 +61,11 @@
   padding: 0 $spacing-small;
 
   &:active {
-    background-color: $color-background-row-hover;
+    background-color: $color-background-row-active;
   }
 
   &:last-child {
     border-bottom: $border-width-thin solid $color-border;
-  }
-
-  @include touch-device {
-
-    .slds-button:active {
-      color: currentColor;
-    }
   }
 }
 

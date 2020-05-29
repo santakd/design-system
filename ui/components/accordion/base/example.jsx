@@ -5,6 +5,7 @@ import React from 'react';
 import SvgIcon from '../../../shared/svg-icon';
 import classNames from 'classnames';
 import { ActionOverflow } from '../../menus/action-overflow/example';
+import Card from '../../cards/';
 
 const referenceId01 = 'accordion-details-01';
 const referenceId02 = 'accordion-details-02';
@@ -43,7 +44,10 @@ export const AccordionSection = props => (
               sprite="utility"
               symbol="switch"
             />
-            <span className="slds-truncate" title={props.summary}>
+            <span
+              className="slds-accordion__summary-content"
+              title={props.summary}
+            >
               {props.summary}
             </span>
           </button>
@@ -211,6 +215,38 @@ export let states = [
 ];
 
 export let examples = [
+  {
+    id: 'long-heading-truncated',
+    label: 'Long Section Heading with Truncation for larger screens',
+    demoStyles: 'max-width: 500px;',
+    element: (
+      <Card>
+        <Accordion>
+          <AccordionSection
+            summary="Accordion summary Accordion summary Accordion summary Accordion summary Accordion summary Accordion summary Accordion summary Accordion summary Accordion summary Accordion summary"
+            isOpen
+            referenceId={referenceId01}
+          >
+            Accordion details - A
+          </AccordionSection>
+          <AccordionSection
+            summary="Accordion summary"
+            isOpen={false}
+            referenceId={referenceId02}
+          >
+            Accordion details - B
+          </AccordionSection>
+          <AccordionSection
+            summary="Accordion summary"
+            isOpen={false}
+            referenceId={referenceId03}
+          >
+            Accordion details - C
+          </AccordionSection>
+        </Accordion>
+      </Card>
+    )
+  },
   {
     id: 'nested-accordions',
     label: 'Nested Accordions',

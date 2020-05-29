@@ -1,17 +1,16 @@
 import { configure, addDecorator, addParameters } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
-import sldsTheme from './sldsTheme';
 import { initializeRTL } from 'storybook-addon-rtl';
 
-initializeRTL();
+import loadStories from './stories';
+import sldsTheme from './sldsTheme';
 
 import './scss/ui/index.scss'; // Our custom Storybook presentation styles
+import '../ui/index.scss'; // SLDS stylesheet
+import '../ui/touch.scss'; // SLDS touch stylesheet (with media/feature query)
+import '../ui/touch-demo.scss'; // SLDS touch stylesheet for documentation site (without media/feature query)
 
-const req = require.context('../ui/', true, /\.stories\.js$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
+initializeRTL();
 
 // Global Decorators
 // https://storybook.js.org/addons/introduction/#1-decorators
